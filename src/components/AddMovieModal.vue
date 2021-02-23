@@ -1,13 +1,22 @@
 <template>
-  <div class="modal-mask" @click="closeModal">
-    <div class="modal-wrapper">
-      <div class="modal-container">
-        <div class="modal-header"></div>
-        <div class="modal-body"></div>
-        <div class="modal-footer"></div>
+  <transition name="modal">
+    <div class="modal-mask" @click="closeModal">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-header">
+            <slot name="header"></slot>
+          </div>
+          <div class="modal-body">
+            <slot name="body"></slot>
+          </div>
+          <div class="modal-footer">
+            <button @click="this.$emit('close')">Close</button>
+            <slot name="footer"></slot>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
