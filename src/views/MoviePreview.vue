@@ -11,7 +11,10 @@
           <h3>{{ movie.genre }}</h3>
           <h3>{{ movie.year }}</h3>
           <h3>
-            <span :style="{ 'background-color': getRatingColor() }" id="movie-rating">
+            <span
+              :style="{ 'background-color': getRatingColor() }"
+              id="movie-rating"
+            >
               {{ movie.rating }}</span
             >
           </h3>
@@ -19,16 +22,18 @@
           <h3>Box Office : {{ movie.boxOffice }}</h3>
           <h3>
             Actors :
-            <span v-for="(actor, index) in movie.actors" :key="index">{{actor.name}}</span>
+            <span v-for="(actor, index) in movie.actors" :key="index">{{
+              actor.name
+            }}</span>
           </h3>
           <h3>
-              <strong>Storyline :</strong>
-              {{movie.storyline}}
+            <strong>Storyline :</strong>
+            {{ movie.storyline }}
           </h3>
         </div>
         <div id="options">
-            <button class="edit">Edit</button>
-            <button class="delete">Delete</button>
+          <button class="edit">Edit</button>
+          <button class="delete">Delete</button>
         </div>
       </div>
     </div>
@@ -37,19 +42,14 @@
 
 <script>
 import Navbar from "../components/Navbar.vue";
+import ratingMixin from "../mixins/getRatingColor";
 export default {
+  mixins: [ratingMixin],
   components: { Navbar },
   props: {
     id: {
       type: String,
       default: null,
-    },
-  },
-  methods: {
-    getRatingColor() {
-      if (this.movie.rating >= 7) return "#5eb85e";
-      if (this.movie.rating > 4) return "#ffa809";
-      else return "#e10505";
     },
   },
   data() {
@@ -101,7 +101,7 @@ export default {
       }
 
       h3 {
-        color: rgb(143, 143, 143);  
+        color: rgb(143, 143, 143);
 
         #movie-rating {
           display: flex;
