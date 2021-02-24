@@ -120,6 +120,7 @@
 import Navbar from "../components/Navbar";
 import ratingMixin from "../mixins/getRatingColor";
 import Modal from "../components/AddMovieModal";
+import moviesApi from "../services/moviesApi";
 
 export default {
   mixins: [ratingMixin],
@@ -154,7 +155,15 @@ export default {
     },
   },
   created() {
-     this.movie = this.$store.getters.getMovieById(parseInt(this.id));
+    const movie = this.$store.getters.getMovieById(parseInt(this.id));
+    if (movie) {
+      this.movie = movie;
+    } else {
+      moviesApi
+        .getMovieById(this.id)
+        .then((res) => (this.movie = res))
+        .catch((err) => console.log(err));
+    }
   },
 };
 </script>

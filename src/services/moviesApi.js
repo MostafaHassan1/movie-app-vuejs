@@ -9,10 +9,20 @@ const moviesApi = {
       return { ...doc.data(), id: doc.id };
     });
   },
-  getMovieById: async () => {},
-  addMovie: async () => {},
-  updateMovie: async () => {},
-  delelteMovie: async () => {},
+  getMovieById: async (id) => {
+      const document = await db.doc(id).get()
+      return {...document.data() , id}
+  },
+  addMovie: async (form) => {
+    const { id } = db.add(form);
+    return { ...form, id };
+  },
+  updateMovie: async (form) => {
+        return await db.doc(form.id).update(form)
+  },
+  deleteMovie: async (id) => {
+      return await db.doc(id).delete()
+  },
 };
 
 export default moviesApi;
